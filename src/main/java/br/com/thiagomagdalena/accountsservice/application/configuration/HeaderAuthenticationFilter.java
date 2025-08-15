@@ -25,10 +25,14 @@ public class HeaderAuthenticationFilter extends OncePerRequestFilter {
 
     private static final String ROLES_HEADER = "X-User-Roles";
     private final List<PathPattern> publicPatterns;
+    private final List<PathPattern> postPublicPatterns;
 
     public HeaderAuthenticationFilter(SecurityProperties securityProperties) {
         PathPatternParser parser = new PathPatternParser();
         this.publicPatterns = securityProperties.getPublicPaths().stream()
+                .map(parser::parse)
+                .collect(Collectors.toList());
+        this.postPublicPatterns = securityProperties.getPostPublicPaths().stream()
                 .map(parser::parse)
                 .collect(Collectors.toList());
     }
@@ -38,6 +42,7 @@ public class HeaderAuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         if (isPublicPath(request)) {
+            log.info("Rota pública acessada: {}. Acesso permitido sem autenticação.", request.getRequestURI());
             filterChain.doFilter(request, response);
             return;
         }
@@ -62,6 +67,9 @@ public class HeaderAuthenticationFilter extends OncePerRequestFilter {
 
     private boolean isPublicPath(HttpServletRequest request) {
         RequestPath path = RequestPath.parse(request.getRequestURI(), request.getContextPath());
+        if (request.getMethod().equalsIgnoreCase("POST")) {
+            return postPublicPatterns.stream().anyMatch(pattern -> pattern.matches(path));
+        }
         return publicPatterns.stream().anyMatch(pattern -> pattern.matches(path));
     }
 }

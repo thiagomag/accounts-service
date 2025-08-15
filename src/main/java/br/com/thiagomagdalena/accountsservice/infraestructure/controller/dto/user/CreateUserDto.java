@@ -1,5 +1,7 @@
-package br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto;
+package br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.user;
 
+import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.telephone.TelephoneDto;
+import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.address.AddressDto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

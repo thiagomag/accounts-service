@@ -1,4 +1,4 @@
-package br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto;
+package br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.address;
 
 public record AddressDto(
     String street,

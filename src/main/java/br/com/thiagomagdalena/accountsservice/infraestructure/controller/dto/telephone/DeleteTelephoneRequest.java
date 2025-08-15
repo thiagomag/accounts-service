@@ -1,4 +1,4 @@
-package br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto;
+package br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.telephone;
 
 import lombok.*;
 
@@ -9,8 +9,8 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = false)
 @ToString
 @Builder(toBuilder = true)
-public class DeleteAddressRequest {
+public class DeleteTelephoneRequest {
 
-    private Long addressId;
+    private Long telephoneId;
     private Long userId;
 }

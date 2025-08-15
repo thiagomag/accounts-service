@@ -37,6 +37,7 @@ public class JwtTokenService {
                     .withIssuedAt(creationDate())
                     .withExpiresAt(expirationDate())
                     .withSubject(user.getUsername())
+                    .withClaim("userId", user.getUserId())
                     .withClaim("roles", roles)
                     .sign(algorithm);
         } catch (JWTCreationException exception){

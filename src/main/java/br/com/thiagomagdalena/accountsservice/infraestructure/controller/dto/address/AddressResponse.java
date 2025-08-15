@@ -1,6 +1,6 @@
-package br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto;
+package br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.address;
 
-import br.com.thiagomagdalena.accountsservice.domain.enums.TelephoneTypeEnum;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -15,11 +15,16 @@ import lombok.*;
 @Builder(toBuilder = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class TelephoneResponse {
+public class AddressResponse {
 
     private Long id;
-    private String countryCode;
-    private String areaCode;
+    private String street;
     private String number;
-    private TelephoneTypeEnum type;
+    private String complement;
+    private String neighborhood;
+    private String city;
+    private String state;
+    private String country;
+    private String postalCode;
+    private Long userId;
 }

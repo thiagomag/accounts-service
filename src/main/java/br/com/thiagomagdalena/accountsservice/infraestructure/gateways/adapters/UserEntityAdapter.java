@@ -2,7 +2,7 @@ package br.com.thiagomagdalena.accountsservice.infraestructure.gateways.adapters
 
 import br.com.thiagomagdalena.accountsservice.application.configuration.SecurityConfiguration;
 import br.com.thiagomagdalena.accountsservice.domain.entity.User;
-import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.UserResponse;
+import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.user.UserResponse;
 import br.com.thiagomagdalena.accountsservice.infraestructure.persistence.entities.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

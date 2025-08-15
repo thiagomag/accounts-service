@@ -24,12 +24,12 @@ public class UserRepositoryGateway implements UserGateway {
 
     @Override
     public List<UserEntity> findAll() {
-        return userRepository.findAll();
+        return userRepository.findAllActiveUsersWithActiveRelations();
     }
 
     @Override
     public Optional<UserEntity> findById(Long id) {
-        return userRepository.findById(id);
+        return userRepository.findActiveUserByIdWithActiveRelations(id);
     }
 
     @Override

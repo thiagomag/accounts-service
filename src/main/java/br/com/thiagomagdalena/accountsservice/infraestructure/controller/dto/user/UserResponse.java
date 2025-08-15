@@ -1,6 +1,8 @@
-package br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto;
+package br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.user;
 
 import br.com.thiagomagdalena.accountsservice.domain.entity.Role;
+import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.telephone.TelephoneResponse;
+import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.address.AddressResponse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;

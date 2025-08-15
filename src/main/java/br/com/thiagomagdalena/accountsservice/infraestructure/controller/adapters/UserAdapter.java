@@ -1,8 +1,8 @@
 package br.com.thiagomagdalena.accountsservice.infraestructure.controller.adapters;
 
 import br.com.thiagomagdalena.accountsservice.domain.entity.User;
-import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.CreateUserDto;
-import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.UpdateUserDto;
+import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.user.CreateUserDto;
+import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.user.UpdateUserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

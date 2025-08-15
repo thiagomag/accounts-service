@@ -1,7 +1,7 @@
 package br.com.thiagomagdalena.accountsservice.infraestructure.controller.adapters;
 
 import br.com.thiagomagdalena.accountsservice.domain.entity.Address;
-import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.AddressDto;
+import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.address.AddressDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

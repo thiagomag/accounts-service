@@ -2,7 +2,7 @@ package br.com.thiagomagdalena.accountsservice.infraestructure.controller;
 
 import br.com.thiagomagdalena.accountsservice.application.interfaces.user.*;
 import br.com.thiagomagdalena.accountsservice.infraestructure.controller.adapters.UserAdapter;
-import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.*;
+import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.user.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -48,16 +48,19 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BASIC')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN') or (hasRole('ROLE_BASIC') and #userId == #xUserId)")
     @Operation(summary = "Listar usuários por id", description = "Endpoint para listar usuáriospor id")
-    public ResponseEntity<UserResponse> getUserById(@PathVariable Long userId) {
+    public ResponseEntity<UserResponse> getUserById(@PathVariable Long userId,
+                                                    @RequestHeader(value = "X-User-Id") Long xUserId) {
         return ResponseEntity.ok(getUserUseCase.execute(userId));
     }
 
     @PatchMapping("/{userId}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BASIC')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN') or (hasRole('ROLE_BASIC') and #userId == #xUserId)")
     @Operation(summary = "Atualizar usuário", description = "Endpoint para atualizar um usuário existente")
-    public ResponseEntity<UserResponse> updateUser(@PathVariable Long userId, @RequestBody UpdateUserDto updateUserDto) {
+    public ResponseEntity<UserResponse> updateUser(@PathVariable Long userId,
+                                                   @RequestBody UpdateUserDto updateUserDto,
+                                                   @RequestHeader(value = "X-User-Id") Long xUserId) {
         final var user = userAdapter.updateUser(updateUserDto);
         user.setId(userId);
         return ResponseEntity.ok(updateUserUseCase.execute(user));

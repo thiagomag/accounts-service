@@ -2,8 +2,8 @@ package br.com.thiagomagdalena.accountsservice.application.usecases.address;
 
 import br.com.thiagomagdalena.accountsservice.application.gatways.UserGateway;
 import br.com.thiagomagdalena.accountsservice.application.interfaces.address.AddAddressToUserUseCase;
-import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.AddAddressRequest;
-import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.AddressResponse;
+import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.address.AddAddressRequest;
+import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.address.AddressResponse;
 import br.com.thiagomagdalena.accountsservice.infraestructure.gateways.adapters.AddressEntityAdapter;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,6 @@ public class AddAddressToUserUseCaseImpl implements AddAddressToUserUseCase {
     private final UserGateway userGateway;
     private final AddressEntityAdapter addressEntityAdapter;
 
-
     @Override
     public List<AddressResponse> execute(AddAddressRequest request) {
         final var userId = request.getUserId();
@@ -26,8 +25,9 @@ public class AddAddressToUserUseCaseImpl implements AddAddressToUserUseCase {
         final var userEntity = userGateway.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
         final var addressesEntity = addressEntityAdapter.toAddressEntity(addresses);
+        addressesEntity.forEach(addressEntity -> addressEntity.setUser(userEntity));
         userEntity.getAddresses().addAll(addressesEntity);
-        userGateway.save(userEntity);
-        return addressEntityAdapter.toAddressResponse(addressesEntity);
+        final var userEntityUpdated = userGateway.update(userEntity);
+        return addressEntityAdapter.toAddressResponse(userEntityUpdated.getAddresses());
     }
 }

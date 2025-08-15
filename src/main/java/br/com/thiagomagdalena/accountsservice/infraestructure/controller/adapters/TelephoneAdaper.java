@@ -1,7 +1,7 @@
 package br.com.thiagomagdalena.accountsservice.infraestructure.controller.adapters;
 
 import br.com.thiagomagdalena.accountsservice.domain.entity.Telephone;
-import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.TelephoneDto;
+import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.telephone.TelephoneDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

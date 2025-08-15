@@ -5,9 +5,9 @@ spring:
   application:
     name: accounts-service
   datasource:
-    url: jdbc:postgresql://${DB_HOST:192.168.0.76}:${DB_PORT:5432}/${DB_NAME:accounts_service}${DB_URL_PARAM:?ssl=false}
-    username: ${DATABASE_USERNAME:thiago}
-    password: ${DATABASE_PASSWORD:Pedro@2007Aline10!}
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:accounts_service}${DB_URL_PARAM:?ssl=false}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:postgres}
     hikari:
       maximum-pool-size: 10
 
@@ -16,9 +16,11 @@ jwt:
   secret: ${JWT_SECRET:4Z^XrroxR@dWxqf$mTTKwW$!@#qGr4PT}
 
 security:
+  post-public-paths:
+    - "/users"
+    - "/users/login"
   public-paths:
     - "/swagger-ui/**"
     - "/v3/api-docs/**"
     - "/webjars/**"
     - "/swagger-resources/**"
-    - "/auth-service/**"

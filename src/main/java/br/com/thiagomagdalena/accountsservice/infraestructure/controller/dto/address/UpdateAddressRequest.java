@@ -1,4 +1,4 @@
-package br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto;
+package br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.address;
 
 import br.com.thiagomagdalena.accountsservice.domain.entity.Address;
 import lombok.*;

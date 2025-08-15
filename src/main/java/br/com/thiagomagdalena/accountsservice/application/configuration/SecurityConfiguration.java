@@ -27,13 +27,13 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        String[] publicPaths = securityProperties.getPublicPaths().toArray(new String[0]);
+        final var publicPaths = securityProperties.getPublicPaths().toArray(new String[0]);
+        final var postPublicPaths = securityProperties.getPostPublicPaths().toArray(new String[0]);
         http.csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(headerAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/users").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/users/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, postPublicPaths).permitAll()
                         .requestMatchers(publicPaths).permitAll()
                         .anyRequest().authenticated()
                 );

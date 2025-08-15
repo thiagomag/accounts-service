@@ -1,7 +1,7 @@
 package br.com.thiagomagdalena.accountsservice.infraestructure.gateways.adapters;
 
 import br.com.thiagomagdalena.accountsservice.domain.entity.Address;
-import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.AddressResponse;
+import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.address.AddressResponse;
 import br.com.thiagomagdalena.accountsservice.infraestructure.persistence.entities.AddressEntity;
 import org.springframework.stereotype.Component;
 
@@ -27,16 +27,15 @@ public class AddressEntityAdapter {
     }
 
     public AddressEntity toAddressEntityUpdate(Address address, AddressEntity addressEntity) {
-        return AddressEntity.builder()
-                .id(addressEntity.getId())
-                .street(Optional.ofNullable(address.getStreet()).orElse(addressEntity.getStreet()))
-                .city(Optional.ofNullable(address.getCity()).orElse(addressEntity.getCity()))
-                .state(Optional.ofNullable(address.getState()).orElse(addressEntity.getState()))
-                .postalCode(Optional.ofNullable(address.getPostalCode()).orElse(addressEntity.getPostalCode()))
-                .country(Optional.ofNullable(address.getCountry()).orElse(addressEntity.getCountry()))
-                .complement(Optional.ofNullable(address.getComplement()).orElse(addressEntity.getComplement()))
-                .neighborhood(Optional.ofNullable(address.getNeighborhood()).orElse(addressEntity.getNeighborhood()))
-                .build();
+        Optional.ofNullable(address.getStreet()).ifPresent(addressEntity::setStreet);
+        Optional.ofNullable(address.getNumber()).ifPresent(addressEntity::setNumber);
+        Optional.ofNullable(address.getCity()).ifPresent(addressEntity::setCity);
+        Optional.ofNullable(address.getState()).ifPresent(addressEntity::setState);
+        Optional.ofNullable(address.getPostalCode()).ifPresent(addressEntity::setPostalCode);
+        Optional.ofNullable(address.getCountry()).ifPresent(addressEntity::setCountry);
+        Optional.ofNullable(address.getComplement()).ifPresent(addressEntity::setComplement);
+        Optional.ofNullable(address.getNeighborhood()).ifPresent(addressEntity::setNeighborhood);
+        return addressEntity;
     }
 
 

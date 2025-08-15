@@ -1,8 +1,8 @@
 package br.com.thiagomagdalena.accountsservice.application.usecases.address;
 
 import br.com.thiagomagdalena.accountsservice.application.gatways.AddressGateway;
-import br.com.thiagomagdalena.accountsservice.application.interfaces.user.DeleteAddressUseCase;
-import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.DeleteAddressRequest;
+import br.com.thiagomagdalena.accountsservice.application.interfaces.address.DeleteAddressUseCase;
+import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.address.DeleteAddressRequest;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

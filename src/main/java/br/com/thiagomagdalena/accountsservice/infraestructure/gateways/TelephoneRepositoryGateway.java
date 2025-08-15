@@ -46,4 +46,14 @@ public class TelephoneRepositoryGateway implements TelephoneGateway {
         entity.update();
         return telephoneRepository.save(entity);
     }
+
+    @Override
+    public List<TelephoneEntity> findByUserId(Long userId) {
+        return telephoneRepository.findByUserIdAndDeletedTmspIsNull(userId);
+    }
+
+    @Override
+    public Optional<TelephoneEntity> findByIdAndUserId(Long telephoneId, Long userId) {
+        return telephoneRepository.findByIdAndUserIdAndDeletedTmspIsNull(telephoneId, userId);
+    }
 }

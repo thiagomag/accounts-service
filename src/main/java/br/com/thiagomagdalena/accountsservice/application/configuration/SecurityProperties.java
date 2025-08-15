@@ -12,5 +12,6 @@ import java.util.List;
 @Getter
 @Setter
 public class SecurityProperties {
+    private List<String> postPublicPaths;
     private List<String> publicPaths;
 }

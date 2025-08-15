@@ -5,7 +5,7 @@ import br.com.thiagomagdalena.accountsservice.application.gatways.UserGateway;
 import br.com.thiagomagdalena.accountsservice.application.interfaces.user.CreateUserUseCase;
 import br.com.thiagomagdalena.accountsservice.domain.entity.User;
 import br.com.thiagomagdalena.accountsservice.domain.enums.RoleNameEnum;
-import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.UserResponse;
+import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.user.UserResponse;
 import br.com.thiagomagdalena.accountsservice.infraestructure.gateways.adapters.UserEntityAdapter;
 import br.com.thiagomagdalena.accountsservice.infraestructure.persistence.entities.RoleEntity;
 import br.com.thiagomagdalena.accountsservice.infraestructure.persistence.entities.UserEntity;

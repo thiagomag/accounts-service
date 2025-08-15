@@ -21,12 +21,16 @@ public record UserDetailsImpl(UserEntity userEntity) implements UserDetails {
     @Override
     public String getPassword() {
         return userEntity.getPassword();
-    } // Retorna a credencial do usuário que criamos anteriormente
+    }
 
     @Override
     public String getUsername() {
         return userEntity.getEmail();
-    } // Retorna o nome de usuário do usuário que criamos anteriormente
+    }
+
+    public String getUserId() {
+        return userEntity.getId().toString();
+    }
 
     @Override
     public boolean isAccountNonExpired() {

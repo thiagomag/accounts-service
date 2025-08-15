@@ -1,4 +1,4 @@
-package br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto;
+package br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.user;
 
 import br.com.thiagomagdalena.accountsservice.domain.enums.EmployeeTypeEnum;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

@@ -1,11 +1,12 @@
 package br.com.thiagomagdalena.accountsservice.infraestructure.gateways.adapters;
 
 import br.com.thiagomagdalena.accountsservice.domain.entity.Telephone;
-import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.TelephoneResponse;
+import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.telephone.TelephoneResponse;
 import br.com.thiagomagdalena.accountsservice.infraestructure.persistence.entities.TelephoneEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class TelephoneEntityAdapter {
@@ -31,5 +32,23 @@ public class TelephoneEntityAdapter {
                         .areaCode(telephone1.getAreaCode())
                         .build())
                 .toList();
+    }
+
+    public TelephoneEntity toTelephoneEntityUpdate(Telephone telephone, TelephoneEntity telephoneEntity) {
+        Optional.ofNullable(telephone.getAreaCode()).ifPresent(telephoneEntity::setAreaCode);
+        Optional.ofNullable(telephone.getNumber()).ifPresent(telephoneEntity::setNumber);
+        Optional.ofNullable(telephone.getType()).ifPresent(telephoneEntity::setType);
+        Optional.ofNullable(telephone.getCountryCode()).ifPresent(telephoneEntity::setCountryCode);
+        return telephoneEntity;
+    }
+
+    public TelephoneResponse toTelephoneResponse(TelephoneEntity telephoneEntity) {
+        return TelephoneResponse.builder()
+                .id(telephoneEntity.getId())
+                .number(telephoneEntity.getNumber())
+                .type(telephoneEntity.getType())
+                .countryCode(telephoneEntity.getCountryCode())
+                .areaCode(telephoneEntity.getAreaCode())
+                .build();
     }
 }

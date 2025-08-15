@@ -2,7 +2,7 @@ package br.com.thiagomagdalena.accountsservice.application.usecases.address;
 
 import br.com.thiagomagdalena.accountsservice.application.gatways.AddressGateway;
 import br.com.thiagomagdalena.accountsservice.application.interfaces.address.GetAddressFromUserUseCase;
-import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.AddressResponse;
+import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.address.AddressResponse;
 import br.com.thiagomagdalena.accountsservice.infraestructure.gateways.adapters.AddressEntityAdapter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,8 +18,8 @@ public class GetAddressFromUserUseCaseImpl implements GetAddressFromUserUseCase 
     private final AddressEntityAdapter addressEntityAdapter;
 
     @Override
-    public List<AddressResponse> execute(Long aLong) {
-        final var userAddresses = addressGateway.findByUserId(aLong);
+    public List<AddressResponse> execute(Long userId) {
+        final var userAddresses = addressGateway.findByUserId(userId);
         if (userAddresses.isEmpty()) {
             return new ArrayList<>();
         }
