@@ -1,6 +1,6 @@
 package br.com.thiagomagdalena.accountsservice.application.gatways;
 
-import br.com.thiagomagdalena.accountsservice.infraestructure.persistence.entities.BaseEntity;
+import br.com.thiagomagdalena.accountsservice.infrastructure.persistence.entities.BaseEntity;
 
 import java.util.List;
 import java.util.Optional;

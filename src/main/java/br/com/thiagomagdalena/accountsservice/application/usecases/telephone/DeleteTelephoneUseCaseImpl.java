@@ -2,7 +2,7 @@ package br.com.thiagomagdalena.accountsservice.application.usecases.telephone;
 
 import br.com.thiagomagdalena.accountsservice.application.gatways.TelephoneGateway;
 import br.com.thiagomagdalena.accountsservice.application.interfaces.telephone.DeleteTelephoneUseCase;
-import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.telephone.DeleteTelephoneRequest;
+import br.com.thiagomagdalena.accountsservice.infrastructure.controller.dto.telephone.DeleteTelephoneRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

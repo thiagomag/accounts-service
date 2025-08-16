@@ -2,9 +2,9 @@ package br.com.thiagomagdalena.accountsservice.application.usecases.address;
 
 import br.com.thiagomagdalena.accountsservice.application.gatways.UserGateway;
 import br.com.thiagomagdalena.accountsservice.application.interfaces.address.AddAddressToUserUseCase;
-import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.address.AddAddressRequest;
-import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.address.AddressResponse;
-import br.com.thiagomagdalena.accountsservice.infraestructure.gateways.adapters.AddressEntityAdapter;
+import br.com.thiagomagdalena.accountsservice.infrastructure.controller.dto.address.AddAddressRequest;
+import br.com.thiagomagdalena.accountsservice.infrastructure.controller.dto.address.AddressResponse;
+import br.com.thiagomagdalena.accountsservice.infrastructure.gateways.adapters.AddressEntityAdapter;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

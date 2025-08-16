@@ -1,7 +1,7 @@
 package br.com.thiagomagdalena.accountsservice.domain;
 
-import br.com.thiagomagdalena.accountsservice.infraestructure.persistence.entities.UserEntity;
-import br.com.thiagomagdalena.accountsservice.infraestructure.persistence.entities.UserRoleEntity;
+import br.com.thiagomagdalena.accountsservice.infrastructure.persistence.entities.UserEntity;
+import br.com.thiagomagdalena.accountsservice.infrastructure.persistence.entities.UserRoleEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

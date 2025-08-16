@@ -1,8 +1,8 @@
 package br.com.thiagomagdalena.accountsservice.application.interfaces.telephone;
 
 import br.com.thiagomagdalena.accountsservice.application.interfaces.UseCase;
-import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.telephone.AddTelephoneRequest;
-import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.telephone.TelephoneResponse;
+import br.com.thiagomagdalena.accountsservice.infrastructure.controller.dto.telephone.AddTelephoneRequest;
+import br.com.thiagomagdalena.accountsservice.infrastructure.controller.dto.telephone.TelephoneResponse;
 
 import java.util.List;
 

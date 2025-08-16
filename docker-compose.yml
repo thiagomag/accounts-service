@@ -1,0 +1,28 @@
+services:
+  accounts-service:
+    image: thiagomag/accounts-service:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - mvp-network
+    container_name: accounts-service
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    environment:
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DB_NAME: accounts_service
+      DB_URL_PARAM: ?ssl=false
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: postgres
+      JWT_ISSUER: thiago-magdalena
+      JWT_SECRET: 4Z^XrroxR@dWxqf$mTT
+
+volumes:
+  postgres_data:
+
+networks:
+  mvp-network:
+    external: true

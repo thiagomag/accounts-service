@@ -2,7 +2,7 @@ package br.com.thiagomagdalena.accountsservice.application.service;
 
 import br.com.thiagomagdalena.accountsservice.application.gatways.UserGateway;
 import br.com.thiagomagdalena.accountsservice.domain.UserDetailsImpl;
-import br.com.thiagomagdalena.accountsservice.infraestructure.persistence.entities.UserEntity;
+import br.com.thiagomagdalena.accountsservice.infrastructure.persistence.entities.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

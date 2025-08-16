@@ -2,9 +2,9 @@ package br.com.thiagomagdalena.accountsservice.application.usecases.telephone;
 
 import br.com.thiagomagdalena.accountsservice.application.gatways.TelephoneGateway;
 import br.com.thiagomagdalena.accountsservice.application.interfaces.telephone.UpdateTelephoneUseCase;
-import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.telephone.TelephoneResponse;
-import br.com.thiagomagdalena.accountsservice.infraestructure.controller.dto.telephone.UpdateTelephoneRequest;
-import br.com.thiagomagdalena.accountsservice.infraestructure.gateways.adapters.TelephoneEntityAdapter;
+import br.com.thiagomagdalena.accountsservice.infrastructure.controller.dto.telephone.TelephoneResponse;
+import br.com.thiagomagdalena.accountsservice.infrastructure.controller.dto.telephone.UpdateTelephoneRequest;
+import br.com.thiagomagdalena.accountsservice.infrastructure.gateways.adapters.TelephoneEntityAdapter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
