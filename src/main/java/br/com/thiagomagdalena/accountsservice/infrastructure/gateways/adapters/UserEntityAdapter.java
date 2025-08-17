@@ -43,8 +43,11 @@ public class UserEntityAdapter {
                 .id(userEntity.getId())
                 .email(user.isEmailChangeAuthorized() && user.getEmail() != null ? user.getEmail() : userEntity.getEmail())
                 .password(user.isPasswordChangeAuthorized() && user.getPassword() != null ? securityConfiguration.passwordEncoder().encode(user.getPassword()) : userEntity.getPassword())
-                .name(Optional.ofNullable(user.getFullName()).orElse(user.getFullName()))
-                .cpf(Optional.ofNullable(user.getCpf()).orElse(user.getCpf()))
+                .name(Optional.ofNullable(user.getFullName()).orElse(userEntity.getName()))
+                .cpf(Optional.ofNullable(user.getCpf()).orElse(userEntity.getCpf()))
+                .telephones(userEntity.getTelephones())
+                .addresses(userEntity.getAddresses())
+                .userRoles(userEntity.getUserRoles())
                 .build();
     }
 

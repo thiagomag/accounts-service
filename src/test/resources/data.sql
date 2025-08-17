@@ -15,3 +15,9 @@ INSERT INTO users(email, password, name, cpf) VALUES('pedro.santos@email.com', '
 INSERT INTO address(street, number, complement, neighborhood, city, state, country, postal_code, user_id) VALUES('Travessa dos Sonhos', '789', 'Casa B', 'Vila Feliz', 'Belo Horizonte', 'MG', 'Brasil', '30000-000', 3);
 INSERT INTO telephones(country_code, area_code, number, type, user_id) VALUES('55', '31', '998761234', 'MOBILE', 3);
 INSERT INTO user_roles(user_id, role_id) VALUES(3, 2); -- ROLE_BASIC
+
+-- Usuário 4: Ana Costa (Basic)
+INSERT INTO users(email, password, name, cpf) VALUES('ana.costa@email.com', '$2a$10$kNTFFYm5yhvd7Stp8zUM6e7BEQiPQhGqdcPvkWLCvGD7ajf5HBx/a', 'Ana Costa', '22233344455');
+INSERT INTO address(street, number, neighborhood, city, state, country, postal_code, user_id) VALUES('Rua do Sol', '321', 'Apto 202', 'Salvador', 'BA', 'Brasil', '40000-000', 4);
+INSERT INTO telephones(country_code, area_code, number, type, user_id) VALUES('55', '71', '987654321', 'MOBILE', 4);
+INSERT INTO user_roles(user_id, role_id) VALUES(4, 2); -- ROLE_BASIC

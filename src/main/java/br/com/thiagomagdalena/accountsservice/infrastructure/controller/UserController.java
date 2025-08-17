@@ -60,7 +60,7 @@ public class UserController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN') or (hasRole('ROLE_BASIC') and #userId == #xUserId)")
     @Operation(summary = "Atualizar usuário", description = "Endpoint para atualizar um usuário existente")
     public ResponseEntity<UserResponse> updateUser(@PathVariable Long userId,
-                                                   @RequestBody UpdateUserDto updateUserDto,
+                                                   @Valid @RequestBody UpdateUserDto updateUserDto,
                                                    @RequestHeader(value = "X-User-Id") Long xUserId) {
         final var user = userAdapter.updateUser(updateUserDto);
         user.setId(userId);

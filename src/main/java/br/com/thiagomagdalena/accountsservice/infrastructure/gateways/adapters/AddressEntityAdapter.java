@@ -62,6 +62,7 @@ public class AddressEntityAdapter {
         return AddressResponse.builder()
                 .id(address.getId())
                 .street(address.getStreet())
+                .number(address.getNumber())
                 .city(address.getCity())
                 .state(address.getState())
                 .postalCode(address.getPostalCode())

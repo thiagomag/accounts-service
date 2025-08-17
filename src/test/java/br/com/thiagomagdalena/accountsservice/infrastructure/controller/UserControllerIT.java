@@ -5,6 +5,7 @@ import br.com.thiagomagdalena.accountsservice.infrastructure.controller.dto.addr
 import br.com.thiagomagdalena.accountsservice.infrastructure.controller.dto.telephone.TelephoneDto;
 import br.com.thiagomagdalena.accountsservice.infrastructure.controller.dto.user.CreateUserDto;
 import br.com.thiagomagdalena.accountsservice.infrastructure.controller.dto.user.LoginUserDto;
+import br.com.thiagomagdalena.accountsservice.infrastructure.controller.dto.user.UpdateUserDto;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,6 +32,8 @@ public class UserControllerIT {
 
     private final Long adminUserId = 1L;
     private final Long basicUserId = 2L;
+    private final Long basicUserId2 = 3L;
+    private final Long basicUserId3 = 4L;
 
     @BeforeEach
     public void setup() {
@@ -55,7 +58,7 @@ public class UserControllerIT {
                 .post("/users")
                 .then()
                 .statusCode(201)
-                .body("id", equalTo(4))
+                .body("id", equalTo(5))
                 .body("email", equalTo("teste@teste.com"))
                 .body("name", equalTo("Teste"))
                 .body("cpf", equalTo("11111111111"))
@@ -120,11 +123,22 @@ public class UserControllerIT {
                 .header("X-User-Roles", "ROLE_ADMIN")
                 .header("X-User-Id", adminUserId)
                 .when()
-                .get("/users/{userId}", basicUserId) // buscando o usuário básico (ID 2)
+                .get("/users/{userId}", basicUserId3)
                 .then()
                 .statusCode(200)
-                .body("id", equalTo(basicUserId.intValue()))
-                .body("email", equalTo("maria.oliveira@email.com"));
+                .body("id", equalTo(basicUserId3.intValue()))
+                .body("email", equalTo("ana.costa@email.com"));
+    }
+
+    @Test
+    public void shouldReturnNotFoundWhenSearchedByIdADeletedUser() {
+        given()
+                .header("X-User-Roles", "ROLE_ADMIN")
+                .header("X-User-Id", adminUserId)
+                .when()
+                .get("/users/{userId}", basicUserId2)
+                .then()
+                .statusCode(404);
     }
 
     @Test
@@ -228,5 +242,121 @@ public class UserControllerIT {
                 .get("/users")
                 .then()
                 .statusCode(403);
+    }
+
+    @Test
+    public void shouldReturnOkWhenUpdatingUserWithAdminRole() {
+        final var userDto = UpdateUserDto.builder().fullName("Novo Nome").email("novoemail@email.com").emailChangeAuthorized(true).build();
+
+        given()
+                .header("X-User-Roles", "ROLE_ADMIN")
+                .header("X-User-Id", adminUserId)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(userDto)
+                .when()
+                .patch("/users/{userId}", basicUserId)
+                .then()
+                .statusCode(200)
+                .body("id", equalTo(basicUserId.intValue()))
+                .body("email", equalTo("novoemail@email.com"))
+                .body("name", equalTo("Novo Nome"));
+    }
+
+    @Test
+    public void shouldReturnForbiddenWhenBasicUserTriesToUpdateAnotherUser() {
+        final var userDto = UpdateUserDto.builder().fullName("Novo Nome").email("novoemail@email.com").emailChangeAuthorized(true).build();
+
+        given()
+                .header("X-User-Roles", "ROLE_BASIC")
+                .header("X-User-Id", basicUserId)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(userDto)
+                .when()
+                .patch("/users/{userId}", adminUserId)
+                .then()
+                .statusCode(403);
+    }
+
+    @Test
+    public void shouldUpdateOwnUserSuccessfully() {
+        final var userDto = UpdateUserDto.builder().fullName("Novo Nome").email("novoemail@email.com").emailChangeAuthorized(true).build();
+
+        given()
+                .header("X-User-Roles", "ROLE_BASIC")
+                .header("X-User-Id", basicUserId)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(userDto)
+                .when()
+                .patch("/users/{userId}", basicUserId)
+                .then()
+                .statusCode(200)
+                .body("id", equalTo(basicUserId.intValue()))
+                .body("email", equalTo("novoemail@email.com"))
+                .body("name", equalTo("Novo Nome"));
+    }
+
+    @Test
+    public void shouldReturnBadRequestWhenUpdatingUserWithInvalidData() {
+        final var userDto = UpdateUserDto.builder().email("invalid-email").emailChangeAuthorized(true).build();
+
+        given()
+                .header("X-User-Roles", "ROLE_ADMIN")
+                .header("X-User-Id", adminUserId)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(userDto)
+                .when()
+                .patch("/users/{userId}", basicUserId)
+                .then()
+                .statusCode(400)
+                .body("$", hasKey("email"))
+                .body("email", equalTo("O e-mail deve ser válido."));
+    }
+
+    @Test
+    public void shouldReturnNotFoundWhenUpdatingNonExistentUser() {
+        final var userDto = UpdateUserDto.builder().fullName("Novo Nome").email("novoemail@email.com").emailChangeAuthorized(true).build();
+
+        given()
+                .header("X-User-Roles", "ROLE_ADMIN")
+                .header("X-User-Id", adminUserId)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(userDto)
+                .when()
+                .patch("/users/{userId}", 999)
+                .then()
+                .statusCode(404);
+    }
+
+    @Test
+    public void shouldDeleteUserSuccessfully() {
+        given()
+                .header("X-User-Roles", "ROLE_ADMIN")
+                .header("X-User-Id", adminUserId)
+                .when()
+                .delete("/users/{userId}", basicUserId2)
+                .then()
+                .statusCode(204);
+    }
+
+    @Test
+    public void shouldReturnForbiddenWhenBasicUserTriesToDeleteAnotherUser() {
+        given()
+                .header("X-User-Roles", "ROLE_BASIC")
+                .header("X-User-Id", basicUserId)
+                .when()
+                .delete("/users/{userId}", adminUserId)
+                .then()
+                .statusCode(403);
+    }
+
+    @Test
+    public void shouldReturnNotFoundWhenDeletingNonExistentUser() {
+        given()
+                .header("X-User-Roles", "ROLE_ADMIN")
+                .header("X-User-Id", adminUserId)
+                .when()
+                .delete("/users/{userId}", 999)
+                .then()
+                .statusCode(404);
     }
 }

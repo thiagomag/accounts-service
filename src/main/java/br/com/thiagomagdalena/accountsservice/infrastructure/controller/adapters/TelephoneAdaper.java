@@ -19,4 +19,13 @@ public class TelephoneAdaper {
                         .build())
                 .toList();
     }
+
+    public Telephone toTelephone(TelephoneDto telephoneDto) {
+        return Telephone.builder()
+                .type(telephoneDto.type())
+                .number(telephoneDto.number())
+                .countryCode(telephoneDto.countryCode())
+                .areaCode(telephoneDto.areaCode())
+                .build();
+    }
 }
