@@ -23,10 +23,6 @@ public class UpdateUserDto {
     private String email;
     private String password;
     private String fullName;
-    private EmployeeTypeEnum employeeTypeEnum;
-    private String councilNumber;
-    private String councilState;
-    private String specialty;
     private Boolean passwordChangeAuthorized;
     private Boolean emailChangeAuthorized;
 }
