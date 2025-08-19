@@ -26,6 +26,7 @@ public class UserController {
     private final GetUserUseCase getUserUseCase;
     private final UpdateUserUseCase updateUserUseCase;
     private final DeleteUserUseCase deleteUserUseCase;
+    private final ActivateSubscriptionUseCase activateSubscriptionUseCase;
     private final UserAdapter userAdapter;
 
     @PostMapping("/login")
@@ -73,5 +74,12 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
         deleteUserUseCase.execute(userId);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/subscription/activate")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @Operation(summary = "Ativar assinatura de um usuário", description = "Endpoint administrativo para ativar uma assinatura.")
+    public ResponseEntity<UserResponse> activateSubscription(@Valid @RequestBody SubscriptionDto subscriptionDto) {
+        return ResponseEntity.ok(activateSubscriptionUseCase.execute(subscriptionDto));
     }
 }

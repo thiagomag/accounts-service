@@ -32,6 +32,10 @@ public record UserDetailsImpl(UserEntity userEntity) implements UserDetails {
         return userEntity.getId().toString();
     }
 
+    public String getSubscriptionStatus() {
+        return userEntity.getSubscriptionStatus() != null ? userEntity.getSubscriptionStatus().name() : null;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;

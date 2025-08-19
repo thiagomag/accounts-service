@@ -1,9 +1,11 @@
 package br.com.thiagomagdalena.accountsservice.infrastructure.persistence.entities;
 
+import br.com.thiagomagdalena.accountsservice.domain.enums.SubscriptionStatusEnum;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,6 +36,13 @@ public class UserEntity extends BaseEntity<Long> {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<AddressEntity> addresses;
+
+    @Column(name = "subscription_status")
+    @Enumerated(EnumType.STRING)
+    private SubscriptionStatusEnum subscriptionStatus;
+
+    @Column(name = "subscription_end_date")
+    private LocalDate subscriptionEndDate;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<UserRoleEntity> userRoles = new HashSet<>();

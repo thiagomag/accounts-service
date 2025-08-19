@@ -39,6 +39,7 @@ public class JwtTokenService {
                     .withSubject(user.getUsername())
                     .withClaim("userId", user.getUserId())
                     .withClaim("roles", roles)
+                    .withClaim("subscription_status", user.getSubscriptionStatus() != null ? user.getSubscriptionStatus() : "INACTIVE")
                     .sign(algorithm);
         } catch (JWTCreationException exception){
             throw new JWTCreationException("Erro ao gerar token.", exception);

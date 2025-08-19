@@ -59,6 +59,8 @@ public class UserEntityAdapter {
                 .cpf(user.getCpf())
                 .telephones(telephoneEntityAdapter.toTelephoneResponse(user.getTelephones()))
                 .addresses(addressEntityAdapter.toAddressResponse(user.getAddresses()))
+                .subscriptionStatus(user.getSubscriptionStatus())
+                .subscriptionEndDate(user.getSubscriptionEndDate())
                 .role(roleEntityAdapter.toRole(user.getUserRoles()))
                 .build();
     }

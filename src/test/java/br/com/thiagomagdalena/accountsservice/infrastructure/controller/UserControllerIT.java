@@ -5,6 +5,7 @@ import br.com.thiagomagdalena.accountsservice.infrastructure.controller.dto.addr
 import br.com.thiagomagdalena.accountsservice.infrastructure.controller.dto.telephone.TelephoneDto;
 import br.com.thiagomagdalena.accountsservice.infrastructure.controller.dto.user.CreateUserDto;
 import br.com.thiagomagdalena.accountsservice.infrastructure.controller.dto.user.LoginUserDto;
+import br.com.thiagomagdalena.accountsservice.infrastructure.controller.dto.user.SubscriptionDto;
 import br.com.thiagomagdalena.accountsservice.infrastructure.controller.dto.user.UpdateUserDto;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
@@ -358,5 +359,103 @@ public class UserControllerIT {
                 .delete("/users/{userId}", 999)
                 .then()
                 .statusCode(404);
+    }
+
+    @Test
+    public void shouldActivateSubscriptionForUser() {
+        final var subscriptionDto = new SubscriptionDto(2L, 365);
+
+        given()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .header("X-User-Roles", "ROLE_ADMIN")
+                .header("X-User-Id", adminUserId)
+                .body(subscriptionDto)
+                .when()
+                .post("/users/subscription/activate")
+                .then()
+                .statusCode(200)
+                .body("subscription_status", equalTo("ACTIVE"))
+                .body("subscription_end_date", notNullValue());
+    }
+
+    @Test
+    public void shouldReturnForbiddenWhenActivatingSubscriptionAsBasicUser() {
+        final var subscriptionDto = new SubscriptionDto(2L, 365);
+
+        given()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .header("X-User-Roles", "ROLE_BASIC")
+                .header("X-User-Id", basicUserId)
+                .body(subscriptionDto)
+                .when()
+                .post("/users/subscription/activate")
+                .then()
+                .statusCode(403);
+    }
+
+    @Test
+    public void shouldReturnBadRequestWhenActivatingSubscriptionWithInvalidData() {
+        final var subscriptionDto = new SubscriptionDto(null, 35);
+
+        given()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .header("X-User-Roles", "ROLE_ADMIN")
+                .header("X-User-Id", adminUserId)
+                .body(subscriptionDto)
+                .when()
+                .post("/users/subscription/activate")
+                .then()
+                .statusCode(400)
+                .body("$", hasKey("userId"))
+                .body("userId", equalTo("O ID do usuário não pode ser nulo."));
+    }
+
+    @Test
+    public void shouldReturnBadRequestWhenActivatingSubscriptionWithInvalidData2() {
+        final var subscriptionDto = new SubscriptionDto(1L, -1);
+
+        given()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .header("X-User-Roles", "ROLE_ADMIN")
+                .header("X-User-Id", adminUserId)
+                .body(subscriptionDto)
+                .when()
+                .post("/users/subscription/activate")
+                .then()
+                .statusCode(400)
+                .body("$", hasKey("durationInDays"))
+                .body("durationInDays", equalTo("A duração da assinatura não pode ser um valor negativo."));
+    }
+
+    @Test
+    public void shouldReturnBadRequestWhenActivatingSubscriptionForNonExistentUser() {
+        final var subscriptionDto = new SubscriptionDto(999L, 365);
+
+        given()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .header("X-User-Roles", "ROLE_ADMIN")
+                .header("X-User-Id", adminUserId)
+                .body(subscriptionDto)
+                .when()
+                .post("/users/subscription/activate")
+                .then()
+                .statusCode(404)
+                .body("error", equalTo("Entity not found: User not found"));
+    }
+
+    @Test
+    public void shouldReturnBadRequestWhenActivatingSubscriptionForUserWithActiveSubscription() {
+        final var subscriptionDto = new SubscriptionDto(2L, 365);
+
+        given()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .header("X-User-Roles", "ROLE_ADMIN")
+                .header("X-User-Id", adminUserId)
+                .body(subscriptionDto)
+                .when()
+                .post("/users/subscription/activate")
+                .then()
+                .statusCode(400)
+                .body("error", equalTo("Invalid argument: User already has an active subscription"));
     }
 }

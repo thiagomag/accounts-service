@@ -1,6 +1,7 @@
 package br.com.thiagomagdalena.accountsservice.infrastructure.controller.dto.user;
 
 import br.com.thiagomagdalena.accountsservice.domain.entity.Role;
+import br.com.thiagomagdalena.accountsservice.domain.enums.SubscriptionStatusEnum;
 import br.com.thiagomagdalena.accountsservice.infrastructure.controller.dto.telephone.TelephoneResponse;
 import br.com.thiagomagdalena.accountsservice.infrastructure.controller.dto.address.AddressResponse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -8,6 +9,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @NoArgsConstructor
@@ -26,5 +28,7 @@ public class UserResponse {
     private String cpf;
     private List<TelephoneResponse> telephones;
     private List<AddressResponse> addresses;
+    private SubscriptionStatusEnum subscriptionStatus;
+    private LocalDate subscriptionEndDate;
     private List<Role> role;
 }
